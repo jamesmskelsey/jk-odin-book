@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
 
+  root "static_pages#home"
+
   devise_for :users
-  root "static_pages#home" #don't forget to make a home with static_pages
+
+  resources :users do
+    resources :friendships, only: [:index, :create, :update, :destroy ]
+  end
+  #don't forget to make a home with static_pages
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

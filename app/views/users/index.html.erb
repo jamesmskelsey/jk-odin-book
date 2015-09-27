@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+
+      <% @users.each do |user| %>
+        <div class="col-md-12 panel">
+          <h2><%= user.email %></h2>
+          <%= form_tag(user_friendships_path(current_user),  method: "post", class: "form-inline") do %>
+            <div class="form-group">
+              <%= hidden_field_tag(:id, user.id) %>
+              <%= submit_tag "Add Friend", class:"btn btn-success" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+  </div>
+</div>
