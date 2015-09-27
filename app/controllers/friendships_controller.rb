@@ -1,7 +1,7 @@
 class FriendshipsController < ApplicationController
 
   before_action :require_sign_in
-  
+
   def index
     @friends = current_user.friendships.accepted
     @pending = current_user.friendships.pending
@@ -35,7 +35,7 @@ class FriendshipsController < ApplicationController
   end
 
     def update
-      # accept updates, make sure to update both friend requests
+      # This doesn't read very well, but I'm grabbing both relationships to update them both.
 
       @request = get_friendship(params[:user_id], params[:friend_id])
       @pending = get_friendship(params[:friend_id], params[:user_id])
@@ -54,6 +54,8 @@ class FriendshipsController < ApplicationController
 
     # Destroying friendships... sounds lovely
     def destroy
+
+      # this is actually kind of cool because I can cancel friend requests/deny requests/unfriend all with the same code
       @request = get_friendship(params[:user_id], params[:friend_id])
       @pending = get_friendship(params[:friend_id], params[:user_id])
 
