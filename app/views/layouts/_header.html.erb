@@ -12,8 +12,11 @@
 
     <ul class="nav navbar-nav navbar-right">
       <li><%= link_to "Sign out", destroy_user_session_path, method: "delete" %></li>
-      <li><%= link_to '<span class="glyphicon glyphicon-user"></span>'.html_safe, user_friendships_path(current_user) %></li>
-      <li><a href="#"> <%= current_user.friendships.pending.count %></a></li>
+      <li><%= link_to user_friendships_path(current_user) do %>
+          <span class="glyphicon glyphicon-user"></span>
+          <span class="badge"><%= current_user.friendships.pending.count %></span>
+          <% end %> </li>
+
     </ul>
     <% end %>
   </div>

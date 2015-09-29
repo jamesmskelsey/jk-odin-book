@@ -15,4 +15,8 @@ class Friendship < ActiveRecord::Base
   scope :accepted, -> { where("status = 'accepted'") } #both people see Accepted as friends
   scope :pending,  -> { where("status = 'pending'") } # the person receiving the request sees pending
   scope :requested, -> { where("status = 'requested'")} # the person requesting the friendship sees requested
+
+  def self.friendship_exists?(user_id, friend_id)
+    !get_friendship(user_id, friend_id).nil?
+  end
 end

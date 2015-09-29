@@ -9,18 +9,8 @@
               <h4><%= pending.friend.email %></h4>
             </div>
             <div class="panel-body">
-              <%= form_tag(user_friendship_path(current_user, pending.friend.id),  method: "patch", class: "form-inline") do %>
-                <div class="form-group">
-                  <%= hidden_field_tag(:friend_id, pending.friend.id) %>
-                  <%= submit_tag "Accept", class:"btn btn-success" %>
-                </div>
-              <% end %>
-              <%= form_tag(user_friendship_path(current_user, pending.friend.id),  method: "delete", class: "form-inline") do %>
-                <div class="form-group">
-                  <%= hidden_field_tag(:friend_id, pending.friend.id) %>
-                  <%= submit_tag "Deny", class:"btn btn-danger" %>
-                </div>
-              <% end %>
+              <%= link_to "Accept", user_friendship_path(current_user, :id => pending.friend.id), method: "patch", class: "btn btn-success" %>
+              <%= link_to "Deny", user_friendship_path(current_user, :id => pending.friend.id), method: "delete", class: "btn btn-danger" %>
             </div>
           </div>
         </div>
@@ -41,12 +31,7 @@
               <h4><%= friend.friend.email %></h4>
             </div>
             <div class="panel-body">
-              <%= form_tag(user_friendship_path(current_user, friend.friend.id),  method: "delete", class: "form-inline") do %>
-                <div class="form-group">
-                  <%= hidden_field_tag(:friend_id, friend.friend.id) %>
-                  <%= submit_tag "Unfriend", class:"btn btn-danger" %>
-                </div>
-              <% end %>
+              <%= link_to "Unfriend", user_friendship_path(current_user, :id => friend.friend.id), method: "delete", class: "btn btn-danger" %>
             </div>
           </div>
         </div>

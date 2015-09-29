@@ -3,13 +3,13 @@
 
       <% @users.each do |user| %>
         <div class="col-md-12 panel">
-          <h2><%= user.email %></h2>
-          <%= form_tag(user_friendships_path(current_user),  method: "post", class: "form-inline") do %>
-            <div class="form-group">
-              <%= hidden_field_tag(:id, user.id) %>
-              <%= submit_tag "Add Friend", class:"btn btn-success" %>
-            </div>
+          <h2><%= link_to user.email, user_path(user) %></h2>
+          <% if !friendship_exists?(current_user, user).nil? %>
+            <%= link_to "Add Friend", user_friendships_path(current_user, :id => user.id), method: "post", class: "btn btn-success" %>
+          <% else %>
+            <%= link_to "Unfriend", user_friendship_path(current_user, :id => user.id), method: "delete", class: "btn btn-danger" %>
           <% end %>
+
         </div>
       <% end %>
 
