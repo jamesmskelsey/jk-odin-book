@@ -1,0 +1,22 @@
+
+<% if !@comment.nil? %>
+  <!-- edit -->
+  <div class="panel panel-body">
+    <%= form_tag post_comment_path(@post, :id => @comment.id), method: :patch, class: "form-vertical" do %>
+      <div class="form-group">
+        <%= text_field_tag :content, @comment.content || nil, placeholder: "Make a comment...", class: "form-control" %>
+      </div>
+        <%= submit_tag "Comment", class: "btn btn-primary pull-right" %>
+    <% end %>
+  </div>
+<% else %>
+  <!-- create -->
+  <div class="panel panel-body">
+    <%= form_tag post_comments_path((post), :author_id => current_user.id), method: :post, class: "form-vertical" do %>
+      <div class="form-group">
+        <%= text_field_tag :content, nil, placeholder: "Make a comment...", class: "form-control" %>
+      </div>
+        <%= submit_tag "Comment", class: "btn btn-primary pull-right" %>
+    <% end %>
+  </div>
+<% end %>

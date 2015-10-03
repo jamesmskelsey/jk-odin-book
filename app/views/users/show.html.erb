@@ -4,38 +4,13 @@
       <h3>Profile info</h3>
       <p><%= @user.email %></p>
     </div>
-    <div class="col-sm-8">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          Posted by: a@a.com
-        </div>
-        <div class="panel-body">
-          A single post.
-        </div>
-        <div class="panel-footer">
-          <button class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span> Like</button>
-          <button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove-circle"></span> if user, delete</button>
 
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          A single post.
-        </div>
-        <div class="panel-footer">
-          <button class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span> Like</button>
-          <button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove-circle"></span> if user, delete</button>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          A single post.
-        </div>
-        <div class="panel-footer">
-          <button class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span> Like</button>
-          <button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove-circle"></span> if user, delete</button>
-        </div>
-      </div>
+    <div class="col-sm-8">
+      <%= render partial: 'posts/post_form' %>
+
+      <!-- start a post -->
+      <%= render partial: 'posts/post', collection: @posts %>
+
     </div>
   </div>
 </div>

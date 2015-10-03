@@ -1,0 +1,4 @@
+<div id="like-form-<%= "#{post.id}" %>">
+  <%= link_to "Like", post_likes_path(post, :user_id => current_user.id),
+                      method: "post", class: "btn btn-xs btn-primary", remote: true %>
+</div>

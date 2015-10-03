@@ -1,0 +1,32 @@
+<% post ||= @post %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= link_to "#{post.author.email}", user_path(post.author) %>
+
+    <div class="btn-group pull-right">
+
+      <% if current_user.id == post.author_id %>
+        <%= link_to edit_post_path(post), class: "btn btn-xs btn-info" do %>
+          <span class="glyphicon glyphicon-pencil"></span>
+        <% end %>
+        <%= link_to post_path(post), method: :delete, class: "btn btn-xs btn-danger", data: { confirm: "Are you sure?" } do %>
+         <span class="glyphicon glyphicon-remove-circle"></span>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="btn-group pull-right">
+      <%= render partial: 'likes/un_like_form', locals: {post: post} %>
+    </div>
+  </div>
+  <div class="panel-body">
+    <%= post.content %>
+
+  </div>
+  <div class="panel-footer">
+    <h5 class="pull-right"><small><%= time_ago_in_words(post.created_at, include_seconds: true) %></small></h5>
+    <p id="likes-count-<%= "#{post.id}"%>" ><%= pluralize( post.likes.count, "like" ) %></p>
+  </div>
+
+    <%= render partial: 'comments/comment', collection: post.comments %>
+    <%= render partial: 'comments/comment_form', locals: { post: post } %>
+</div> <!-- end of post -->

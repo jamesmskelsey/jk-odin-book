@@ -12,14 +12,32 @@
 
 <%= render 'layouts/header' %>
 
-  <p class="notice">
-    <%= notice %>
-  </p>
-  <p class="alert">
-    <%= alert %>
-  </p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+  <% if !flash[:notice].blank? %>
+    <div class="panel panel-success">
+      <div class="panel-body">
+      <p class="notice">
+        <%= notice %>
+      </p>
+    </div>
+    </div>
+  <% end %>
+  <% if !flash[:alert].blank? %>
+    <div class="panel panel-warning">
+      <div class="panel-body">
+      <p class="alert">
+        <%= alert %>
+      </p>
+    </div>
+  </div>
+  <% end %>
+</div>
+</div>
+</div>
   <%= yield %>
-
+  <%= debug(params) if Rails.env.development? %>
 </body>
 
 </html>
