@@ -1,7 +1,7 @@
 <% post ||= @post %>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <%= link_to "#{post.author.email}", user_path(post.author) %>
+    <%= link_to "#{post.author.profile.try(:full_name) || post.author.email}", user_path(post.author) %>
 
     <div class="btn-group pull-right">
 

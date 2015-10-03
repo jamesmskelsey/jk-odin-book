@@ -6,11 +6,13 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :friendships, only: [:index, :create, :update, :destroy ]
+    resource :profiles
   end
 
   resources :posts do
     resources :likes, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy, :edit, :update]
+
   end
   # 7 RESTful routes: index, show, new, create, edit, update, destroy
   # The priority is based upon order of creation: first created -> highest priority.

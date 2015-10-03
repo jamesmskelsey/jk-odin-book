@@ -3,13 +3,16 @@
 
       <% @users.each do |user| %>
         <div class="col-md-12 panel">
-          <h2><%= link_to user.email, user_path(user) %></h2>
-          <% if !friendship_exists?(current_user, user).nil? %>
-            <%= link_to "Add Friend", user_friendships_path(current_user, :id => user.id), method: "post", class: "btn btn-success" %>
+          <h2><%= link_to user.profile.try(:full_name) || user.email, user_path(user) %></h2>
+          <% if user != current_user %>
+            <% if !friendship_exists?(user, current_user) %>
+              <%= link_to "Add Friend", user_friendships_path(current_user, :id => user.id), method: "post", class: "btn btn-success" %>
+            <% else %>
+              <%= link_to "Unfriend", user_friendship_path(current_user, :id => user.id), method: "delete", class: "btn btn-danger" %>
+            <% end %>
           <% else %>
-            <%= link_to "Unfriend", user_friendship_path(current_user, :id => user.id), method: "delete", class: "btn btn-danger" %>
+            <a href="#" class="btn btn-info">This is you</a>
           <% end %>
-
         </div>
       <% end %>
 

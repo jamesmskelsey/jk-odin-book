@@ -12,10 +12,10 @@ class User < ActiveRecord::Base
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy, foreign_key: "author_id"
 
+  has_one :profile, dependent: :destroy
+
   def feed
-
     Post.where("author_id IN (?) OR author_id = ?", friend_ids, id)
-
   end
 
   def likes?(postlikes)

@@ -19,6 +19,25 @@
 
   </div>
   <div class="row">
+      <% if @requested.empty? %>
+        <h3> You have no friend requests! <%= link_to "Find some friends!", users_path %> </h3>
+      <% else %>
+        <h3> <%= pluralize(@requested.count, "friend request") %></h3>
+      <% end %>
+      <% @requested.each do |requested| %>
+        <div class="col-md-8">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h4><%= requested.friend.email %></h4>
+            </div>
+            <div class="panel-body">
+              <%= link_to "Cancel", user_friendship_path(current_user, :id => requested.friend.id), method: "delete", class: "btn btn-danger" %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+    </div>
+  <div class="row">
       <% if @friends.empty? %>
         <h3> You have no friends! <%= link_to "Find some!", users_path %> </h3>
       <% else %>

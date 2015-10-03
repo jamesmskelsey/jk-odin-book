@@ -16,7 +16,13 @@ class Friendship < ActiveRecord::Base
   scope :pending,  -> { where("status = 'pending'") } # the person receiving the request sees pending
   scope :requested, -> { where("status = 'requested'")} # the person requesting the friendship sees requested
 
-  def self.friendship_exists?(user_id, friend_id)
-    !get_friendship(user_id, friend_id).nil?
-  end
+  #def self.friendship_exists?(user_id, friend_id)
+  #  raise
+  #  !get_friendship(user_id, friend_id).nil?
+  #end
+
+  #def get_friendship(user_id, friend_id)
+  #  raise
+  #  Friendship.where("user_id = ? AND friend_id = ?", user_id, friend_id).first
+  #end
 end
