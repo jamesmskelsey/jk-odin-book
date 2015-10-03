@@ -1,4 +1,4 @@
-<div id="btn-group likes-form-<%= "#{post.id}" %>">
+<div id="likes-form-<%= "#{post.id}" %>">
   <% if !current_user.likes?(post.likes) %>
     <%= render partial: 'likes/like_form', locals: { post: post } %>
   <% else %>
