@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 
   def realfriends
     a = Array.new
-    Friendship.where("status = 'accepted'").each { |f| a << f.friend_id }
-    a.uniq!
+    self.friendships.where("status = 'accepted'").each { |f| a << f.friend_id }
+    a.uniq
   end
 end
