@@ -15,10 +15,16 @@ class User < ActiveRecord::Base
   has_one :profile, dependent: :destroy
 
   def feed
-    Post.where("author_id IN (?) OR author_id = ?", friend_ids, id)
+    Post.where("author_id IN (?) OR author_id = ?", realfriends, id)
   end
 
   def likes?(postlikes)
     postlikes.any? { |like| like.user_id == self.id }
+  end
+
+  def realfriends
+    a = Array.new
+    Friendship.where("status = 'accepted'").each { |f| a << f.friend_id }
+    a.uniq!
   end
 end
