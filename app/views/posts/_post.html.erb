@@ -20,7 +20,7 @@
   </div>
   <div class="panel-body">
     <%= post.content %>
-
+    <%= image_tag(post.picture.url, class: "img img-responsive center-block") if post.picture? %>
   </div>
   <div class="panel-footer">
     <h5 class="pull-right"><small><%= time_ago_in_words(post.created_at, include_seconds: true) %></small></h5>
