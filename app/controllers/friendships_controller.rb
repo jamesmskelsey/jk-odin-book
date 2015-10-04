@@ -3,6 +3,7 @@ class FriendshipsController < ApplicationController
   include FriendshipsHelper
 
   before_action :require_sign_in
+  before_action :correct_user?, only: [:index]
 
   def index
     @friends = current_user.friendships.accepted
@@ -74,8 +75,14 @@ class FriendshipsController < ApplicationController
       redirect_to user_friendships_path
     end
 
-#    private
-#
+    private
+
+      def correct_user?
+        if current_user != User.find(params[:user_id])
+          redirect_to user_friendships_path(current_user)
+        end
+      end
+
 #    def get_friendship(user_id, friend_id)
 #      Friendship.where("user_id = ? AND friend_id = ?", user_id, friend_id).first
 #    end
