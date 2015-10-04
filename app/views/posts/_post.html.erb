@@ -1,6 +1,7 @@
 <% post ||= @post %>
 <div class="panel panel-default">
   <div class="panel-heading">
+    <%= image_tag(post.author.profile.picture.thumb.url, class: "img") if post.author.profile.picture? %>
     <%= link_to "#{post.author.profile.try(:full_name) || post.author.email}", user_path(post.author) %>
 
     <div class="btn-group pull-right">
@@ -21,6 +22,7 @@
   <div class="panel-body">
     <%= post.content %>
     <%= image_tag(post.picture.url, class: "img img-responsive center-block") if post.picture? %>
+
   </div>
   <div class="panel-footer">
     <h5 class="pull-right"><small><%= time_ago_in_words(post.created_at, include_seconds: true) %></small></h5>

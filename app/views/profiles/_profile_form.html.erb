@@ -1,4 +1,11 @@
 <%= form_for @profile, url: user_profiles_path, class: "form-vertical" do |f| %>
+  <div class="profile-pic">
+    <%= image_tag( @profile.picture.profile_pic.url, class: "img img-responsive thumbnail") if @profile.picture? %>
+  </div>
+  <div class="form-group">
+    <%= f.label :picture, "Add a profile picture. Best if square image." %>
+    <%= f.file_field :picture, accept: 'image/jpeg, image/gif, image/png, image/jpg' %>
+  </div>
   <div class="form-group">
     <%= f.label :first_name %>
     <%= f.text_field :first_name, class: "form-control" %>
@@ -10,7 +17,20 @@
   <div class="form-group">
     <%= f.label :hometown %>
     <%= f.text_field :hometown, class: "form-control" %>
+  </div>
   <div class="form-group">
     <%= f.submit %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  $('#profile_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+
+    if (size_in_megabytes > 5) {
+      var file = document.getElementById("profile_picture");
+      file.value = file.defaultValue;
+      alert('Maximum file size is 5MB. Please choose a smaller size.');
+    }
+  });
+</script>

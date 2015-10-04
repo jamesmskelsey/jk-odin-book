@@ -13,3 +13,14 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+ .jumbotron {
+   background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c1/%C3%86sir-Vanir_war_by_Fr%C3%B8lich.jpg);
+   background-size: cover;
+   background-repeat: no-repeat;
+   height: 800px;
+   text-align: center;
+   h1 {
+     text-shadow: 5px 5px 10px rgba(255, 255, 255, 1);
+   }
+ }
