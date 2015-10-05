@@ -2,7 +2,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, :omniauth_providers => [:facebook]
 
 
   # Friendships
@@ -13,6 +14,15 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy, foreign_key: "author_id"
 
   has_one :profile, dependent: :destroy
+
+  def self.from_omniauth(auth)
+      where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+        user.provider = auth.provider
+        user.uid = auth.uid
+        user.email = auth.info.email
+        user.password = Devise.friendly_token[0,20]
+      end
+  end
 
   def feed
     Post.where("author_id IN (?) OR author_id = ?", realfriends, id)

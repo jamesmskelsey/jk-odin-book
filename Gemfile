@@ -4,6 +4,11 @@ source 'https://rubygems.org'
 gem 'bootstrap-sass'
 # Use devise for user authorization/authentication
 gem 'devise'
+# Use omniauth / omniauth-facebook for external authentication
+
+gem 'omniauth'
+gem 'omniauth-facebook'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 # Use postgresql as the database for Active Record
