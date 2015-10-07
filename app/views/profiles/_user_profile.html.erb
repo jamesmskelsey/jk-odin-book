@@ -1,0 +1,25 @@
+<div class="col-sm-4 well">
+  <a type="button" data-toggle="modal" data-target="#profilePicModal">
+    <%= image_tag( @user.profile.picture.profile_pic.url, class: "img img-responsive thumbnail img-rounded") if @user.profile.picture? %>
+  </a>
+  <h3>User Profile</h3>
+  <div class="bar"></div>
+  <p>Name: <%= @user.profile.full_name %></p>
+  <p>From: <%= @user.profile.hometown %></p>
+</div>
+<div class="modal fade" id="profilePicModal" tabindex="-1" role="dialog"
+  aria-labelledby="profilePicModalLabel">
+  <div class="model-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <a type="button" data-dismiss="modal">
+              <%= image_tag(@user.profile.picture.url, class: "img img-responsive center-block img-rounded", width: 1024) if @user.profile.picture? %>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+this_post = '<%=j render partial: 'comments/comment', locals: { comment: @comment } %>'
+$( this_post ).fadeIn().insertBefore( $('#comment-form-<%= @comment.commentable_id %>'));
+var input = $('#content');
+input.val(input.defaultValue);

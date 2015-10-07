@@ -1,34 +1,57 @@
 <% post ||= @post %>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <%= image_tag(post.author.profile.picture.thumb.url, class: "img") if post.author.profile.picture? %>
-    <%= link_to "#{post.author.profile.try(:full_name) || post.author.email}", user_path(post.author) %>
+<div id="post-with-id-<%= post.id %>" >
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= image_tag(post.author.profile.picture.thumb.url, class: "img img-rounded") if post.author.profile.picture? %>
 
-    <div class="btn-group pull-right">
+      <%= link_to "#{post.author.profile.try(:full_name) || post.author.email}", user_path(post.author), class: "lead text-capitalize" %>
 
-      <% if current_user.id == post.author_id %>
-        <%= link_to edit_post_path(post), class: "btn btn-xs btn-info" do %>
-          <span class="glyphicon glyphicon-pencil"></span>
+      <div class="btn-group pull-right">
+
+        <% if current_user.id == post.author_id %>
+          <%= link_to edit_post_path(post), class: "btn btn-xs btn-info" do %>
+            <span class="glyphicon glyphicon-pencil"></span>
+          <% end %>
+          <%= link_to post_path(post), method: :delete, class: "btn btn-xs btn-danger", remote: true, data: { confirm: "Are you sure?" } do %>
+           <span class="glyphicon glyphicon-remove-circle"></span>
+          <% end %>
         <% end %>
-        <%= link_to post_path(post), method: :delete, class: "btn btn-xs btn-danger", data: { confirm: "Are you sure?" } do %>
-         <span class="glyphicon glyphicon-remove-circle"></span>
-        <% end %>
-      <% end %>
+      </div>
+      <div class="btn-group pull-right">
+        <%= render partial: 'likes/un_like_form', locals: {post: post} %>
+      </div>
     </div>
-    <div class="btn-group pull-right">
-      <%= render partial: 'likes/un_like_form', locals: {post: post} %>
+    <div class="panel-body">
+      <%= post.content %>
+      <a type="button" data-toggle="modal" data-target="#postPicModal-<%= post.id %>">
+        <%= image_tag(post.picture.url, class: "img img-responsive center-block") if post.picture? %>
+      </a>
+    </div>
+    <div class="panel-footer">
+      <h5 class="pull-right"><small><%= time_ago_in_words(post.created_at, include_seconds: true) %></small></h5>
+      <p id="likes-count-<%= "#{post.id}"%>" ><%= pluralize( post.likes.count, "like" ) %></p>
+    </div>
+
+      <%= render partial: 'comments/comment', collection: post.comments %>
+      <%= render partial: 'comments/comment_form', locals: { post: post } %>
+  </div> <!-- end of post -->
+</div>
+
+<% if post.picture? %>
+  <div class="modal fade" id="postPicModal-<%= post.id %>" tabindex="-1" role="dialog"
+    aria-labelledby="profilePicModalLabel">
+    <div class="model-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <a type="button" data-dismiss="modal">
+                <%= image_tag(post.picture.url, class: "img img-responsive center-block", width: 1024) if post.picture? %>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="panel-body">
-    <%= post.content %>
-    <%= image_tag(post.picture.url, class: "img img-responsive center-block") if post.picture? %>
-
-  </div>
-  <div class="panel-footer">
-    <h5 class="pull-right"><small><%= time_ago_in_words(post.created_at, include_seconds: true) %></small></h5>
-    <p id="likes-count-<%= "#{post.id}"%>" ><%= pluralize( post.likes.count, "like" ) %></p>
-  </div>
-
-    <%= render partial: 'comments/comment', collection: post.comments %>
-    <%= render partial: 'comments/comment_form', locals: { post: post } %>
-</div> <!-- end of post -->
+<% end %>

@@ -1,5 +1,7 @@
-<div class="well">
-  <%= form_for @post, html: {class: "form-vertical", multipart: true} do |f|%>
+<div class="well" id="post-form-well" >
+
+<% unless @edit %>
+  <%= form_for @post, html: {class: "form-vertical", id: "post-form", multipart: true, :remote => true } do |f| %>
     <%= f.hidden_field :author_id, value: current_user.id %>
     <div class="form-group">
       <%= f.text_field :content, class: "form-control", placeholder: "Share your thoughts..." %>
@@ -11,8 +13,24 @@
       <%= f.submit "Share", class: "btn btn-primary" %>
     </div>
   <% end %>
+<% else %>
+  <%= form_for @post, html: {class: "form-vertical", id: "post-form", multipart: true, :remote => false } do |f| %>
+    <%= f.hidden_field :author_id, value: current_user.id %>
+    <div class="form-group">
+      <%= f.text_field :content, class: "form-control", placeholder: "Share your thoughts..." %>
+    </div>
+    <div class="form-group">
+      <%= f.file_field :picture, accept: 'image/jpeg, image/gif, image/png, image/jpg' %>
+    </div>
+    <div class="form-group">
+      <%= f.submit "Share", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+<% end %>
 
   <script type="text/javascript">
+
+
     $('#post_picture').bind('change', function() {
       var size_in_megabytes = this.files[0].size/1024/1024;
 

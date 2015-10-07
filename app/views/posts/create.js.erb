@@ -1,0 +1,4 @@
+this_post = '<%=j render partial: 'posts/post', locals: { post: @post } %>'
+$( this_post ).fadeIn().insertAfter( $('#post-form-well'));
+var input = $('#post_content');
+input.val(input.defaultValue);

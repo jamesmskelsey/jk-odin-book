@@ -7,7 +7,10 @@ before_action :require_sign_in
 
     if @comment.save
       flash[:notice] = "Commented!"
-      redirect_to @author
+      respond_to do |format|
+        format.html { redirect_to @author }
+        format.js
+      end
     else
       @user = @author
       render 'users/show'
@@ -26,7 +29,12 @@ before_action :require_sign_in
   end
 
   def destroy
-
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+    respond_to do |format|
+      format.html { redirect_to @comment.author }
+      format.js
+    end
   end
 
   private

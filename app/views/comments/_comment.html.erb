@@ -1,19 +1,21 @@
-<div class="panel panel-body comment">
-  <div class="row">
-    <div class="col-sm-10">
-      <p><%= comment.author.profile.first_name %> says: <%= comment.content %></p>
-      <h5><small><%= time_ago_in_words(comment.created_at) %><%= "*" if (comment.created_at != comment.updated_at) %></small></h5>
-    </div>
-    <div class="col-sm-2">
-      <div class="btn-group pull-right">
-        <% if current_user.id == comment.author_id %>
-          <%= link_to edit_post_comment_path(comment.commentable, comment), class: "btn btn-xs btn-info" do %>
-            <span class="glyphicon glyphicon-pencil"></span>
+<div id="comment-with-id-<%= comment.id %>">
+  <div class="panel panel-body comment">
+    <div class="row">
+      <div class="col-sm-10">
+        <p><%= comment.author.profile.first_name %> says: <%= comment.content %></p>
+        <h5><small><%= time_ago_in_words(comment.created_at) %><%= "*" if (comment.created_at != comment.updated_at) %></small></h5>
+      </div>
+      <div class="col-sm-2">
+        <div class="btn-group pull-right">
+          <% if current_user.id == comment.author_id %>
+            <%= link_to edit_post_comment_path(comment.commentable, comment), class: "btn btn-xs btn-info" do %>
+              <span class="glyphicon glyphicon-pencil"></span>
+            <% end %>
+            <%= link_to post_comment_path(comment.commentable, comment), method: :delete, class: "btn btn-xs btn-danger", remote: true, data: { confirm: "Are you sure?" } do %>
+             <span class="glyphicon glyphicon-remove-circle"></span>
+            <% end %>
           <% end %>
-          <%= link_to post_comment_path(comment.commentable, comment), method: :delete, class: "btn btn-xs btn-danger", data: { confirm: "Are you sure?" } do %>
-           <span class="glyphicon glyphicon-remove-circle"></span>
-          <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
   </div>

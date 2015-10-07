@@ -11,8 +11,11 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @author = User.find(params[:post][:author_id])
     if @post.save
-      flash[:notice] = "Post created."
-      redirect_to user_path(@author)
+      flash.now[:notice] = "Post created."
+      respond_to do |format|
+        format.html { redirect_to user_path(@author) }
+        format.js
+      end
     else
       flash[:alert] = "Post must have content."
       @user = @author #change to post receiver during that implementation...
@@ -23,11 +26,16 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find_by(id: params[:id])
     @post.destroy
-    flash[:notice] = "click click, post deleted"
-    redirect_to request.referer || root_url
+    flash.now[:notice] = "click click, post deleted"
+    respond_to do |format|
+      format.html { redirect_to request.referer || root_url }
+      format.js
+    end
+
   end
 
   def edit
+    @edit = true
     @post = Post.find(params[:id])
   end
 

@@ -4,13 +4,11 @@
     <div class="navbar-header">
       <%= link_to "OdinBook", root_path, class: "navbar-brand" %>
     </div>
-    <ul class="nav navbar-nav">
-      <li><%= link_to "Home", root_path %></li>
-      <li><%= link_to "Find friends", users_path %></li>
-    </ul>
     <% if user_signed_in? %>
 
     <ul class="nav navbar-nav navbar-right">
+      <li><%= link_to "Home", root_path %></li>
+      <li><%= link_to "Find friends", users_path %></li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
         aria-haspopup="true" aria-expanded="false">
@@ -24,8 +22,11 @@
         </ul>
       </li>
       <li><%= link_to user_friendships_path(current_user) do %>
-          <span class="glyphicon glyphicon-user"></span>
-          <span class="badge"><%= current_user.friendships.pending.count %></span>
+          <% pending_count = current_user.friendships.pending.count %>
+          <span class="<%= 'requests-waiting' if pending_count > 0 %>">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <span class="badge"><%= pending_count if pending_count > 0 %></span>
+          </span>
           <% end %> </li>
 
     </ul>

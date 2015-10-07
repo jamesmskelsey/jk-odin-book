@@ -1,16 +1,10 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-4 well">
-      <%= image_tag( @user.profile.picture.profile_pic.url, class: "img img-responsive thumbnail") if @user.profile.picture? %>
-      <h3>Profile info</h3>
-      <p><%= @user.profile.full_name %></p>
-      <p><%= @user.profile.hometown %></p>
-    </div>
+    <%= render partial: 'profiles/user_profile' %>
 
     <div class="col-sm-8">
       <%= render partial: 'posts/post_form' %>
 
-      <!-- start a post -->
       <%= render partial: 'posts/post', collection: @posts %>
 
     </div>
